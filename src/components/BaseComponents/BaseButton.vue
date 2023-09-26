@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ text: string; isDisabled: boolean }>();
+const props = defineProps<{ text: string; isDisabled?: boolean }>()
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-button {
   padding: 18px 32px;
   font-weight: 700;

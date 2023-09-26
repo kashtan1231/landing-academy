@@ -16,28 +16,28 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  label: string;
-  modelValue: string;
-  placeholder: string;
-  errorMsg: string;
-  isError: boolean;
-}>();
+  label: string
+  modelValue: string
+  placeholder: string
+  errorMsg?: string
+  isError?: boolean
+}>()
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
-  (e: "checkField"): void;
-}>();
+  (e: 'update:modelValue', value: string): void
+  (e: 'checkField'): void
+}>()
 
 const checkField = (): void => {
-  emit("checkField");
-};
+  emit('checkField')
+}
 
 const onInput = (event: Event): void => {
-  const target = event.target as HTMLInputElement;
-  emit("update:modelValue", target.value);
-};
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
+}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-input {
   display: flex;
   flex-direction: column;

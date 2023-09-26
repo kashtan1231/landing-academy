@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+#app {
+  font-family: $font-family-default;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $gray;
+}
+
 ::selection {
   background-color: $purple;
   color: $white;
