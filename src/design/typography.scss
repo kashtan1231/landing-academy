@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@font-face {
+  font-family: "e-Ukraine";
+  src: url("@/design/fonts/e-UkraineHead-Bold.otf"),
+    url("@/design/fonts/e-UkraineHead-Light.otf"),
+    url("@/design/fonts/e-UkraineHead-Medium.otf"),
+    url("@/design/fonts/e-UkraineHead-Regular.otf"),
+    url("@/design/fonts/e-UkraineHead-Thin.otf"),
+    url("@/design/fonts/e-UkraineHead-UltraLight.otf");
+}
+
+$font-family-default: "Raleway", sans-serif;
+$font-family-heading: "e-Ukraine", sans-serif;
+
+h1 {
+  font-family: $font-family-heading;
+  font-size: 43px;
+  font-weight: 700;
+  line-height: 65px;
+  letter-spacing: 0px;
+}
+
+h3 {
+  font-family: $font-family-heading;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0px;
+}
+
+p {
+  font-family: $font-family-default;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0px;
+}
