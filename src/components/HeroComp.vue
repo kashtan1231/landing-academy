@@ -38,6 +38,7 @@ import BaseButton from '@/components/BaseComponents/BaseButton.vue'
 
   &__wrapper {
     max-width: 1080px;
+    width: 100%;
   }
 
   &__subtitle {
