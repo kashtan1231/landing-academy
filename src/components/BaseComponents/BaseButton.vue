@@ -8,6 +8,7 @@ const props = defineProps<{ text: string; isDisabled?: boolean }>()
 
 <style lang="scss" scoped>
 .base-button {
+  @extend p;
   padding: 18px 32px;
   font-weight: 700;
   background-color: $blue;

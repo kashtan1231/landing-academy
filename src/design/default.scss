@@ -27,3 +27,12 @@ input {
   outline: none;
   background-color: transparent;
 }
+
+a {
+  color: $gray-dark;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
