@@ -15,6 +15,7 @@
         <BaseInput
           v-model="phone"
           class="form__input"
+          @checkField="checkField('phone')"
           :is-error="phoneError"
           type="tel"
           error-msg="Введіть коректний телефон"
