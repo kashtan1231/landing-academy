@@ -29,7 +29,7 @@ import { onMounted, ref } from 'vue'
 
 const timeLineWidth = ref(0)
 
-onMounted(() => {
+onMounted((): void => {
   const today = new Date().getTime()
   const datePoint1 = new Date(2023, 7, 21).getTime()
   const datePoint2 = new Date(2023, 8, 1).getTime()

@@ -41,6 +41,26 @@
           <a href="#" class="prices__link">Оплатити частинами</a>
         </div>
       </div>
+
+      <ul class="pricing-comp__list">
+        <li v-for="item in prosList" class="list-item" :key="item.text">
+          <p v-html="item.text" class="list-item__text"></p>
+
+          <div class="list-item__prof">
+            <img :src="require(`@/assets/${item.isProf ? 'check' : 'uncheck'}.svg`)" alt="mark" />
+          </div>
+          <div class="list-item__premium">
+            <img :src="require(`@/assets/${item.isPremium ? 'check' : 'uncheck'}.svg`)" alt="mark" />
+          </div>
+        </li>
+      </ul>
+
+      <p class="pricing-comp__text">
+        Оплачуйте пакети <span style="font-weight: 700">частинами без комісії</span>! <br />
+        Натискайте на кнопку <span style="font-weight: 700">Оплатити карткою</span> та оформлюйте
+        розстрочку<br />
+        через PrivatBank або Monobank
+      </p>
     </div>
   </div>
 </template>
@@ -59,8 +79,35 @@ const prices = [
     description: '8 професійних курсів за ціною 2 +<br/>Бухгалтерська Відеоплатформа №1',
   },
 ]
+const prosList = [
+  {
+    text: 'Поглиблені професійні курси підвищення кваліфікації <span style="color: #0066CC">(8 курсів/рік)</span>',
+    isProf: true,
+    isPremium: true,
+  },
+  {
+    text: '<span style="color: #fff; background-color: #0066CC; border-radius: 3px; padding: 0 4px">NEW</span> Практичні курси автоматизації (робота в BAS, Medoc, Excel, ЕК)',
+    isProf: true,
+    isPremium: true,
+  },
+  {
+    text: '<span style="color: #fff; background-color: #0066CC; border-radius: 3px; padding: 0 4px">NEW</span> Закриті клубні лекції з експертами   <span style="color: #0066CC">(1 р./ міс.)</span>',
+    isProf: true,
+    isPremium: true,
+  },
+  {
+    text: 'Доступ до<br/><span style="color: #0066CC; font-weight: 700;">Бухгалтерської Відеоплатформи №1</span>',
+    isProf: false,
+    isPremium: true,
+  },
+  {
+    text: 'Калькулятори',
+    isProf: false,
+    isPremium: true,
+  },
+]
 
-const date = computed(() => {
+const date = computed((): number => {
   const nowDate = new Date()
   const eventDate = new Date('October 3, 2023 17:00:00')
   return Number(eventDate) - Number(nowDate)
@@ -140,7 +187,7 @@ const date = computed(() => {
 
     .prices {
       position: relative;
-      padding: 12px 28px;
+      padding: 12px 28px 48px;
       max-width: 312px;
 
       &:last-child {
@@ -221,6 +268,48 @@ const date = computed(() => {
         line-height: 20px;
       }
     }
+  }
+
+  &__list {
+    .list-item {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid $gray-dark;
+
+      &__text {
+        max-width: 324px;
+        width: 100%;
+        margin-right: auto;
+        text-align: left;
+      }
+
+      &__prof,
+      &__premium {
+        max-width: 312px;
+        width: 100%;
+        padding: 4px;
+      }
+
+      &__premium {
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: -8px;
+          width: 100%;
+          height: calc(100% + 8px * 2);
+          background-color: rgba($blue, 0.05);
+        }
+      }
+    }
+  }
+
+  &__text {
+    margin-top: 40px;
   }
 }
 </style>
