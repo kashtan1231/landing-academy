@@ -3,6 +3,7 @@
     <HeroComp />
     <TimelapseComp />
     <PricingComp />
+    <RegistrationComp />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import HeroComp from '@/components/HeroComp.vue'
 import TimelapseComp from './components/TimelapseComp.vue'
 import PricingComp from './components/PricingComp.vue'
+import RegistrationComp from './components/RegistrationComp.vue'
 </script>
 
 <style lang="scss">
