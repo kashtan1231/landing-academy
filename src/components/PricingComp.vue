@@ -39,10 +39,22 @@
           <p class="prices__sale regular">679 грн/міс.</p>
           <BaseButton class="prices__button" text="Оплатити карткою" />
           <a href="#" class="prices__link">Оплатити частинами</a>
+
+          <ul v-if="isMobileSize" class="pricing-comp__list">
+            <li v-for="item in prosList" class="list-item" :key="item.text">
+              <div v-if="index === 0" class="list-item__prof">
+                <img :src="require(`@/assets/${item.isProf ? 'check' : 'uncheck'}.svg`)" alt="mark" />
+              </div>
+              <div v-else class="list-item__premium">
+                <img :src="require(`@/assets/${item.isPremium ? 'check' : 'uncheck'}.svg`)" alt="mark" />
+              </div>
+              <p v-html="item.text" class="list-item__text"></p>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <ul class="pricing-comp__list">
+      <ul v-if="!isMobileSize" class="pricing-comp__list">
         <li v-for="item in prosList" class="list-item" :key="item.text">
           <p v-html="item.text" class="list-item__text"></p>
 
@@ -111,6 +123,9 @@ const date = computed((): number => {
   const nowDate = new Date()
   const eventDate = new Date('October 3, 2023 17:00:00')
   return Number(eventDate) - Number(nowDate)
+})
+const isMobileSize = computed((): boolean => {
+  return document.documentElement.clientWidth <= 763
 })
 </script>
 
@@ -310,6 +325,61 @@ const date = computed((): number => {
 
   &__text {
     margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 763px) {
+  .pricing-comp {
+    &__subtitle {
+      margin-bottom: 16px;
+    }
+
+    &__header {
+      flex-direction: column;
+
+      .countdown {
+        margin-right: 0;
+        margin-bottom: 52px;
+        padding: 0;
+      }
+
+      .prices {
+        padding: 12px 16px 24px;
+        max-width: unset;
+        width: 100%;
+
+        &:last-child {
+          border-radius: 16px;
+        }
+
+        &__header {
+          left: 0;
+          width: 100%;
+        }
+      }
+    }
+
+    &__list {
+      .list-item {
+        align-items: unset;
+        border: none;
+
+        &__prof,
+        &__premium {
+          width: 24px;
+          margin-right: 8px;
+          padding: 0;
+
+          img {
+            width: 24px;
+          }
+
+          &::after {
+            content: unset;
+          }
+        }
+      }
+    }
   }
 }
 </style>

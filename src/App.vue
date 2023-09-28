@@ -22,4 +22,14 @@ import RegistrationComp from './components/RegistrationComp.vue'
     margin-bottom: 104px;
   }
 }
+
+@media screen and (max-width: 763px) {
+  .page {
+    padding: 40px 0 56px;
+
+    > :not(:last-child) {
+      margin-bottom: 72px;
+    }
+  }
+}
 </style>

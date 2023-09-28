@@ -174,14 +174,6 @@ const sendUserData = async (): Promise<void> => {
       gap: 32px 8px;
 
       .grid-item {
-        &__title {
-          @extend h1;
-          font-size: 64px;
-          line-height: 94px;
-          font-weight: 400;
-          color: $blue;
-        }
-
         &:last-child {
           grid-column: span 2;
 
@@ -191,6 +183,14 @@ const sendUserData = async (): Promise<void> => {
             line-height: 60px;
             font-weight: 700;
           }
+        }
+
+        &__title {
+          @extend h1;
+          font-size: 64px;
+          line-height: 94px;
+          font-weight: 400;
+          color: $blue;
         }
       }
     }
@@ -204,6 +204,42 @@ const sendUserData = async (): Promise<void> => {
   .fade-enter-from,
   .fade-leave-to {
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 763px) {
+  .registration-comp {
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form {
+      padding: 0;
+      margin-bottom: 64px;
+    }
+    .pros {
+      &__grid {
+        .grid-item {
+          &:last-child {
+            .grid-item__title {
+              font-family: $font-family-default;
+              font-size: 24px;
+              line-height: 36px;
+            }
+          }
+          &__title {
+            font-size: 42px;
+            font-weight: 400;
+            line-height: 64px;
+          }
+
+          img {
+            width: 58px;
+          }
+        }
+      }
+    }
   }
 }
 </style>

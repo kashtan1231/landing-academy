@@ -66,7 +66,6 @@ const onInput = (event: Event): void => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 488px;
 
   &__label {
     @extend p;

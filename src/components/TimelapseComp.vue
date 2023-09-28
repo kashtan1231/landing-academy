@@ -108,7 +108,6 @@ onMounted((): void => {
       position: relative;
       top: 0;
       left: 0;
-      width: 60%;
       height: 6px;
       background-color: $black;
       z-index: 2;
