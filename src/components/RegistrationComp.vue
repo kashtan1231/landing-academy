@@ -33,12 +33,43 @@
           placeholder="Введіть Ваш e-mail"
         />
 
-        <BaseButton class="form__button" :is-disabled="isRegistrateButtonDisabled" text="Зареєструватись" />
+        <BaseButton
+          class="form__button"
+          @click="sendUserData"
+          :is-disabled="isRegistrateButtonDisabled"
+          text="Зареєструватись"
+        />
       </div>
 
       <div class="pros">
         <h3 class="pros__title">З передплатою Академії ви отримаєте:</h3>
+        <div class="pros__grid">
+          <div class="grid-item">
+            <p class="grid-item__title">8+</p>
+            <p class="grid-item__descriprion">професійних курсів</p>
+          </div>
+          <div class="grid-item">
+            <p class="grid-item__title">12</p>
+            <p class="grid-item__descriprion">закритих клубних лекцій</p>
+          </div>
+          <div class="grid-item">
+            <p class="grid-item__title">48</p>
+            <p class="grid-item__descriprion">нових вебінарів та тренінгів</p>
+          </div>
+          <div class="grid-item">
+            <img src="@/assets/infinity.svg" alt="infinity" />
+            <p class="grid-item__descriprion">Безлімітні відповіді на запитання протягом навчання</p>
+          </div>
+          <div class="grid-item">
+            <p class="grid-item__title">Тестові та практичні</p>
+            <p class="grid-item__descriprion">завдання зі зворотнім зв'язком</p>
+          </div>
+        </div>
       </div>
+
+      <transition name="fade">
+        <BaseNotification v-if="isShownTip" @closeTip="closeTip" :text="tipText" :is-error="isTipError" />
+      </transition>
     </div>
   </div>
 </template>
@@ -47,13 +78,18 @@
 import { computed, ref } from 'vue'
 import BaseInput from './BaseComponents/BaseInput.vue'
 import BaseButton from './BaseComponents/BaseButton.vue'
+import BaseNotification from './BaseComponents/BaseNotification.vue'
+import { sendForm } from '@/api/mainRequests'
 
+const tipText = ref('')
 const name = ref('')
 const phone = ref('')
 const email = ref('')
 const nameError = ref(false)
 const phoneError = ref(false)
 const emailError = ref(false)
+const isShownTip = ref(false)
+const isTipError = ref(false)
 const emailRegex =
   // eslint-disable-next-line
   /^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\"\.+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -67,6 +103,28 @@ const checkField = (field: string): void => {
   else if (field === 'phone') phoneError.value = phone.value.length < 19
   else if (field === 'email') emailError.value = !emailRegex.test(email.value)
 }
+const closeTip = (): void => {
+  isShownTip.value = false
+}
+const sendUserData = async (): Promise<void> => {
+  try {
+    const { data } = await sendForm({
+      name: name.value,
+      phone: phone.value,
+      email: email.value,
+    })
+
+    if (data.result) {
+      tipText.value = 'Успішна реєстрація'
+      isTipError.value = false
+      isShownTip.value = true
+    }
+  } catch (error: any) {
+    tipText.value = error.response.data.message
+    isTipError.value = true
+    isShownTip.value = true
+  }
+}
 </script>
 
 <style lang="scss">
@@ -79,8 +137,9 @@ const checkField = (field: string): void => {
 
   &__wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 88px;
+    grid-template-columns: repeat(2, minmax(240px, 496px));
+    justify-content: space-between;
+    column-gap: 16px;
     max-width: 1080px;
     width: 100%;
   }
@@ -101,6 +160,50 @@ const checkField = (field: string): void => {
     &__button {
       margin-top: 12px;
     }
+  }
+
+  .pros {
+    &__title {
+      margin-bottom: 24px;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(140px, 228px));
+      justify-content: space-between;
+      gap: 32px 8px;
+
+      .grid-item {
+        &__title {
+          @extend h1;
+          font-size: 64px;
+          line-height: 94px;
+          font-weight: 400;
+          color: $blue;
+        }
+
+        &:last-child {
+          grid-column: span 2;
+
+          .grid-item__title {
+            font-family: $font-family-default;
+            font-size: 40px;
+            line-height: 60px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
   }
 }
 </style>

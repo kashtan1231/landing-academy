@@ -120,7 +120,7 @@ const date = computed((): number => {
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 80px 16px 112px;
+  padding: 0 16px;
 
   &__wrapper {
     max-width: 1080px;
