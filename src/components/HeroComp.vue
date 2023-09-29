@@ -9,7 +9,20 @@
 
       <BaseButton text="Обрати навчання >>" />
 
-      <div class="hero-comp__images">
+      <div v-if="isMobileSize" class="hero-comp__carousel">
+        <Carousel :itemsToShow="itemsToShow" :wrapAround="true" ref="carousel">
+          <Slide v-for="slide in images" :key="slide">
+            <img class="image" :src="require(`@/assets/${slide}.png`)" alt="professions" />
+          </Slide>
+        </Carousel>
+
+        <div class="buttons">
+          <img class="buttons__prev" src="@/assets/next.svg" @click="prevSlide" />
+          <img class="buttons__next" src="@/assets/next.svg" @click="nextSlide" />
+        </div>
+      </div>
+
+      <div v-else class="hero-comp__images">
         <img class="image margin-images" src="@/assets/professions.png" alt="professions" />
         <img class="image" src="@/assets/lections.png" alt="lections" />
         <img class="image margin-images" src="@/assets/qualification.png" alt="qualification" />
@@ -25,6 +38,26 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/BaseComponents/BaseButton.vue'
+import { ref, computed, Ref } from 'vue'
+import { Carousel, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
+
+const images = ['professions', 'lections', 'qualification']
+const carousel: Ref = ref()
+
+const itemsToShow = computed((): number => {
+  return document.documentElement.clientWidth / 346
+})
+const isMobileSize = computed((): boolean => {
+  return document.documentElement.clientWidth <= 763
+})
+
+const prevSlide = () => {
+  carousel.value.prev()
+}
+const nextSlide = () => {
+  carousel.value.next()
+}
 </script>
 
 <style scoped lang="scss">
@@ -65,6 +98,29 @@ import BaseButton from '@/components/BaseComponents/BaseButton.vue'
 
     .margin-images {
       margin-top: 36px;
+    }
+  }
+
+  &__carousel ::v-deep {
+    margin: 24px 0 32px;
+    .carousel__slide {
+      padding: 0;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 48px;
+
+      img {
+        width: 44px;
+      }
+
+      &__prev {
+        rotate: 180deg;
+        margin-right: 8px;
+      }
     }
   }
 }
